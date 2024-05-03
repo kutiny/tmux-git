@@ -18,7 +18,7 @@
 
         local prefix="#[fg=$colour]#[bg=$colour,fg=$fg]󱘖 "
         local suffix="#[bg=default,fg=$colour]#[bg=default,fg=white]"
-        set -ag status-right " $branch$text "
+        tmux set -ag status-right " $branch$text "
     fi
 # }
 
