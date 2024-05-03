@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# showGitStatus() {
+showGitStatus() {
     local colour="colour191"
     local path=$(tmux display -p -F '#{pane_current_path}')
 
@@ -20,5 +20,7 @@
         local suffix="#[bg=default,fg=$colour]#[bg=default,fg=white]"
         tmux set -ag status-right " $branch$text "
     fi
-# }
+}
+
+showGitStatus
 
