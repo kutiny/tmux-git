@@ -1,6 +1,7 @@
 #! /bin/bash
 
 plugin_interpolation_string="\#{tmux_git}"
+count=0
 
 do_interpolation() {
     local string="$1"
@@ -10,7 +11,8 @@ do_interpolation() {
 
 get_git_status() {
     colour="colour191"
-    path=$(tmux display -p -F '#{pane_current_path}')
+    target=$(tmux display -p -F '#{session_id}:#{window_id}.#{pane_id}')
+    path=$(tmux display -pt -F '#{pane_current_path}')
 
     if [[ -d "${path}/.git" ]]; then
         cd "${path}"
@@ -26,7 +28,7 @@ get_git_status() {
 
         prefix="#[fg=$colour]#[bg=$colour,fg=$fg]󱘖 "
         suffix="#[bg=default,fg=$colour]#[bg=default,fg=white]"
-        echo " $branch$text "
+        echo " $branch$text ($count)"
     fi
 }
 
@@ -55,6 +57,7 @@ update_tmux_option() {
 }
 
 main() {
+    count=[[ count + 1 ]]
     update_tmux_option "status-right"
     update_tmux_option "status-left"
 }
